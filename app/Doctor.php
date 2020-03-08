@@ -5,13 +5,13 @@ namespace App;
 use App\Filters\QueryFilter;
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class Doctor extends Model
 {
     /**
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name', 'surname', 'title', 'department_id'
     ];
 
     /**
@@ -19,23 +19,9 @@ class Brand extends Model
      * 
      * @var array
      */
-    protected $with = [
-        'images'
-    ];
-
-    /**
-     * Set the slug while creating a new Brand.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Generate the slug. See @setSlugAttribute
-        static::creating(function($brand) 
-        {
-            $brand->slug = $brand->name;
-        });
-    }
+    // protected $with = [
+    //     'images'
+    // ];
 
     /**
      * Scope to get access to QueryBuilder.
@@ -50,10 +36,26 @@ class Brand extends Model
     }
 
     /**
+     * Doctor belongs to a department.
+     */
+    public function department() 
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    /**
      * Get all images.
      */
     public function images()
     {
         return $this->morphMany(Image::class, 'owner');
+    }
+
+    /**
+     * Get all appointments.
+     */
+    public function appointments() 
+    {
+        return $this->hasMany(Appointment::class);
     }
 }

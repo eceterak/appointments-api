@@ -2,7 +2,7 @@
 
 namespace App\Filters;
 
-class BrandFilters extends QueryFilter
+class PatientFilters extends QueryFilter
 {
     protected $filters = [
         'name'
