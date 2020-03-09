@@ -106,7 +106,10 @@ class DoctorsController extends Controller
      */
     public function appointments(Doctor $doctor, Request $request)
     {
-        $appointments = Appointment::where('doctor_id', $doctor->id)->whereBetween('date',  [Date('2020-03-09'), Date('2020-03-12')])->get()->groupBy('date');
+        $date = $request->date;
+        $fiveDaysFrom = date('Y-m-d', strtotime($date.' + 5 days'));
+
+        $appointments = Appointment::where('doctor_id', $doctor->id)->whereBetween('date',  [Date($date), Date($fiveDaysFrom)])->get()->groupBy('date');
 
         return response()->json(['data' => $appointments], 200);
     }
