@@ -12,7 +12,6 @@ Route::group([], function() {
     Route::post('/me', 'AuthController@me');
 });
 
-
 Route::apiResource('/doctors', 'DoctorsController');
 Route::apiResource('/patients', 'PatientsController');
 Route::apiResource('/departments', 'DepartmentsController');
