@@ -20,4 +20,12 @@ class Department extends Model
     {
         return $this->hasMany(Doctor::class);
     }
+
+    /**
+     * @return hasMany(Service)
+     */
+    public function services() 
+    {
+        return $this->hasMany(Service::class);
+    }
 }

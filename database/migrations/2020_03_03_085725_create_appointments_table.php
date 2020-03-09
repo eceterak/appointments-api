@@ -19,6 +19,7 @@ class CreateAppointmentsTable extends Migration
             $table->unsignedBigInteger('patient_id')->required();
             $table->unsignedBigInteger('service_id')->required();
             $table->tinyInteger('slot')->required();
+            $table->date('date')->required();
             $table->timestamps();
 
             $table->foreign('doctor_id')

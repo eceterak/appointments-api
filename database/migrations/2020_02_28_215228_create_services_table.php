@@ -17,7 +17,7 @@ class CreateServicesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('department_id')->required();
             $table->string('name')->required();
-            $table->text('description');
+            $table->text('description')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('department_id')

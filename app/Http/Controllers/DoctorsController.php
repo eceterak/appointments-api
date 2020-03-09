@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
 use App\Doctor;
 use App\Filters\DoctorFilters;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Doctor as DoctorResource;
 use App\Http\Resources\DoctorCollection as DoctorResourceCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Validator;
 
 class DoctorsController extends Controller
@@ -95,5 +97,17 @@ class DoctorsController extends Controller
     public function destroy(Doctor $doctor) 
     {
         return response()->json($doctor->delete(), 200);
+    }
+
+    /**
+     * Return all services of given department.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function appointments(Doctor $doctor, Request $request)
+    {
+        $appointments = Appointment::where('doctor_id', $doctor->id)->whereBetween('date',  [Date('2020-03-09'), Date('2020-03-12')])->get()->groupBy('date');
+
+        return response()->json(['data' => $appointments], 200);
     }
 }

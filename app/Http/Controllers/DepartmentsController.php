@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Appointment;
 use App\Department;
-use App\Doctor;
 use App\Http\Resources\DepartmentCollection;
 use App\Http\Resources\Department as DepartmentResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -97,6 +94,18 @@ class DepartmentsController extends Controller
     {
         return response()->json([
             'data' => $department->doctors
+        ], 200);
+    }
+
+    /**
+     * Return all services of given department.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function services(Department $department)
+    {
+        return response()->json([
+            'data' => $department->services
         ], 200);
     }
 }

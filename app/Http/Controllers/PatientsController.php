@@ -16,8 +16,13 @@ class PatientsController extends Controller
      *
      * @return \Illuminate\Http\Responsei
      */
-    public function index(PatientFilters $filters) 
+    public function index(Request $request, PatientFilters $filters) 
     {    
+        if($request->clean) 
+        {
+            return new PatientResourceCollection(Patient::all());
+        }
+
         return new PatientResourceCollection(
             Patient::filter($filters)->paginate()
         );
@@ -78,7 +83,7 @@ class PatientsController extends Controller
             'dateOfBirth' => ['required']
         ])->validate();
 
-        $patient = Patient::update([
+        $patient->update([
             'name' => $request->name, 
             'surname' => $request->surname,
             'title' => $request->title,
