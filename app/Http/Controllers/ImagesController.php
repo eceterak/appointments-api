@@ -38,7 +38,7 @@ class ImagesController extends Controller
         $image = Image::create([
             'owner_id' => $attributes['owner_id'],
             'owner_type' => $className,
-            'url' => env('AWS_URL').'/'.request()->file('image')->store('images', 's3')
+            'url' => '/'.request()->file('image')->store('images', 's3')
         ]);
             
         return response()->json($image, 200);
