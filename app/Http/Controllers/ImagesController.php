@@ -16,7 +16,7 @@ class ImagesController extends Controller
      * @return response
      */
     public function store(Request $request) 
-    {
+    {   
         $attributes = $request->validate([
             'owner_id' => 'required',
             'owner_type' => 'required',
@@ -24,6 +24,16 @@ class ImagesController extends Controller
         ]);
 
         $className = 'App\\'.ucfirst($attributes['owner_type']);
+
+        $images = Image::where('owner_id', $attributes['owner_id'])->where('owner_type', $className)->get();
+
+        if($images) 
+        {
+            foreach($images as $image)
+            {
+                $this->destroy($image);
+            }
+        }
 
         $image = Image::create([
             'owner_id' => $attributes['owner_id'],

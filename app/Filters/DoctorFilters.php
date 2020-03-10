@@ -5,17 +5,17 @@ namespace App\Filters;
 class DoctorFilters extends QueryFilter
 {
     protected $filters = [
-        'name'
+        'surname'
     ];
 
     /**
-     * Filter by name
+     * Filter by surname
      * 
      * @param int $value
      * @return QueryBuilder
      */
-    public function name($value = null)
+    public function surname($value = null)
     {
-        return $this->builder->whereRaw('name LIKE ?', $value.'%');
+        return $this->builder->whereRaw('surname LIKE ?', $value.'%');
     }
 }

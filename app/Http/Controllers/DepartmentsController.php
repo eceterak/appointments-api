@@ -93,7 +93,7 @@ class DepartmentsController extends Controller
     public function doctors(Department $department)
     {
         return response()->json([
-            'data' => $department->doctors
+            'data' => $department->doctors->load('Images')
         ], 200);
     }
 

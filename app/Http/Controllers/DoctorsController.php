@@ -22,7 +22,7 @@ class DoctorsController extends Controller
     public function index(DoctorFilters $filters) 
     {    
         return new DoctorResourceCollection(
-            Doctor::filter($filters)->paginate()
+            Doctor::filter($filters)->paginate(10)
         );
     }
 
